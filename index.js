@@ -6,15 +6,29 @@ $(document).ready(function(){
       dataType: 'json',
       success: function (response, textStatus) {
         $('#todo-list').empty();
-        response.tasks.forEach(function (task) {
-          $('#todo-list').append('<div class="row"><p class="col-xs-8">' + task.content + '</p><button class="delete" data-id="' + task.id + '">Delete</button><input type="checkbox" class="mark-complete" data-id="' + task.id + '"' + (task.completed ? 'checked' : '') + '>');
-        });
+        if ($('#filters').hasClass('showCompletedTasks')) {
+          response.tasks.forEach(function (task) {
+            if (task.completed) {
+              $('#todo-list').append('<div class="row"><p class="col-xs-8">' + task.content + '</p><button class="delete" data-id="' + task.id + '">Delete</button><input type="checkbox" class="mark-complete" data-id="' + task.id + '" checked>');
+            }  
+          });
+        } else if ($('#filters').hasClass('showActiveTasks')) {
+          response.tasks.forEach(function (task) {
+            if (!task.completed) {
+              $('#todo-list').append('<div class="row"><p class="col-xs-8">' + task.content + '</p><button class="delete" data-id="' + task.id + '">Delete</button><input type="checkbox" class="mark-complete" data-id="' + task.id + '">');
+            }     
+          });
+        } else {
+          response.tasks.forEach(function (task) {
+            $('#todo-list').append('<div class="row"><p class="col-xs-8">' + task.content + '</p><button class="delete" data-id="' + task.id + '">Delete</button><input type="checkbox" class="mark-complete" data-id="' + task.id + '"' + (task.completed ? 'checked' : '') + '>');
+          });
+        }  
       },
       error: function (request, textStatus, errorMessage) {
         console.log(errorMessage);
       }
     });
-  }
+  };
   
   var createTask = function () {
     $.ajax({
@@ -41,9 +55,26 @@ $(document).ready(function(){
     e.preventDefault();
     createTask();
   });
-  
+
   getAndDisplayAllTasks();
 
+  $('#showCompletedTasks').click(function () {
+  $("#filters").removeClass();
+  $("#filters").addClass('showCompletedTasks');
+  getAndDisplayAllTasks();
+  });
+
+  $('#showActiveTasks').click(function () {
+  $("#filters").removeClass();
+  $("#filters").addClass('showActiveTasks');
+  getAndDisplayAllTasks();
+  });
+
+  $('#showAllTasks').click(function () {
+  $("#filters").removeClass();
+  $("#filters").addClass('showAllTasks');
+  getAndDisplayAllTasks();
+  });
 
   var deleteTask = function (id) {
     $.ajax({
