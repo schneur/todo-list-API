@@ -6,13 +6,13 @@
     <title>To Do List</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href="index.css" rel="stylesheet" type="text/css" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
     <script src="index.js"></script>
   </head>
   <body>
     <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
+      <div class="row form-group">
+        <div class="col-xs-12 toDoList">
           <h2>To Do List</h2>
 
           <div id='todo-list'>
@@ -23,17 +23,21 @@
             <input id="new-task-content" type="text" placeholder="new task" required/>
             <button>Create</button>
           </form>
-
-          <div id="filters">
-            <button id="showCompletedTasks">show completed tasks</button>
-            <button id="showActiveTasks">show active tasks</button>
-            <button id="showAllTasks">Show all tasks</button>
-          </div>
-          
-
-
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-xs-12 ">
+           <div id="filters">
+             <button id="showCompletedTasks">show completed tasks</button>
+             <button id="showActiveTasks">show active tasks</button>
+             <button id="showAllTasks">Show all tasks</button>
+           </div>
+        </div>
+      </div>
+
+      <h2 class="funnyQuote">This is my To do list. <br> next is to figure out who is going to do it. 😂</h2>
+      
     </div>
   </body>
 </html>
